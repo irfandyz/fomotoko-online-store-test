@@ -17,6 +17,9 @@ return new class extends Migration
             $table->integer('price');
             $table->enum('type',['percentage','amount']);
             $table->integer('amount');
+            $table->date('expired_date')->nullable();
+            $table->integer('max_sale')->nullable();
+            $table->enum('status',['active','deactive'])->default('active');
             $table->timestamps();
         });
     }
