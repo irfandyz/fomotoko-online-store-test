@@ -42,7 +42,6 @@ class CartService
 
         return $result;
     }
-
     public function store($request)
     {
         $result = [];
@@ -53,15 +52,65 @@ class CartService
             'product_id'=>$request->product_id,
             'quantity'=>$request->quantity,
         ];
-        $cart = Cart::create($data);
 
         $status = true;
         $message = 'Data created successfully !';
+
+        // Check to see if this product already exists
+        $cart = Cart::where('user_id',$request->user_id)->where('product_id',$request->product_id)->first();
+        if ($cart) {
+            $cart->update([
+                'quantity'=>$cart->quantity+$request->quantity
+            ]);
+            $cart = Cart::where('user_id',$request->user_id)->where('product_id',$request->product_id)->first();
+            $message = 'Data added successfully !';
+        }else{
+            $cart = Cart::create($data);
+        }
 
         $result = (object) [
             'status' => $status,
             'message' => $message,
             'data' => $cart,
+        ];
+
+        return $result;
+    }
+    public function update($request)
+    {
+        $result = [];
+        $result['status'] = false;
+
+        $data = [
+            'quantity'=>$request->quantity,
+        ];
+        $cart = Cart::find($request->cart_id)->update($data);
+        $cart = Cart::find($request->cart_id);
+
+        $status = true;
+        $message = 'Data updated successfully !';
+
+        $result = (object) [
+            'status' => $status,
+            'message' => $message,
+            'data' => $cart,
+        ];
+
+        return $result;
+    }
+    public function delete($request)
+    {
+        $result = [];
+        $result['status'] = false;
+
+        $cart = Cart::find($request->cart_id)->delete();
+
+        $status = true;
+        $message = 'Data deleted successfully !';
+
+        $result = (object) [
+            'status' => $status,
+            'message' => $message,
         ];
 
         return $result;

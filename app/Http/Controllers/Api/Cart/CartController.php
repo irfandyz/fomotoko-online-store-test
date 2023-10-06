@@ -43,5 +43,29 @@ class CartController extends Controller
         return $this->sendResponse($result);
     }
 
+    public function update(Request $request)
+    {
+        $validation = $this->CartValidation->update($request);
+        if (!$validation->status) {
+            return $this->sendResponse($validation);
+        }
+
+        $result = $this->CartService->update($request);
+
+        return $this->sendResponse($result);
+    }
+
+    public function delete(Request $request)
+    {
+        $validation = $this->CartValidation->delete($request);
+        if (!$validation->status) {
+            return $this->sendResponse($validation);
+        }
+
+        $result = $this->CartService->delete($request);
+
+        return $this->sendResponse($result);
+    }
+
 }
 

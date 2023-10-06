@@ -17,4 +17,6 @@ Route::controller(ProductController::class)->group(function () {
 Route::controller(CartController::class)->group(function () {
     Route::post('/cart/getByUserId', 'get');
     Route::post('/cart', 'store');
+    Route::put('/cart', 'update');
+    Route::delete('/cart', 'delete');
 });
