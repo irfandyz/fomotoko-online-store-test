@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('stock');
-            $table->string('price');
+            $table->integer('price');
             $table->timestamps();
         });
     }
