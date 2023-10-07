@@ -22,12 +22,12 @@ class CartService
                 $amountOfData = $request->amount_of_data;
             }
 
-            $paginateData = Cart::getPaginatedData(true, $pageNumber, $amountOfData, 'created_at', 'desc');
+            $paginateData = Cart::where('user_id',$request->user_id)->getPaginatedData(true, $pageNumber, $amountOfData, 'created_at', 'desc');
 
             $cart = $paginateData->data;
             $paginate = $paginateData->pagination;
         } else {
-            $cart = Cart::with('product')->orderBy('created_at', 'desc')->get();
+            $cart = Cart::where('user_id',$request->user_id)->with('product')->orderBy('created_at', 'desc')->get();
         }
 
         $status = true;

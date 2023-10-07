@@ -31,6 +31,19 @@ class ProductController extends Controller
         return $this->sendResponse($result);
     }
 
+    public function find(Request $request)
+    {
+        $validation = $this->ProductValidation->find($request);
+
+        if (!$validation->status) {
+            return $this->sendResponse($validation);
+        }
+
+        $result = $this->ProductService->find($request);
+
+        return $this->sendResponse($result);
+    }
+
     public function store(Request $request)
     {
         $validation = $this->ProductValidation->store($request);

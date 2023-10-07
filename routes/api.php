@@ -18,6 +18,7 @@ Route::controller(UserController::class)->group(function () {
 
 Route::controller(ProductController::class)->group(function () {
     Route::get('/product', 'get');
+    Route::post('/product/find', 'find');
     Route::post('/product', 'store');
 });
 
@@ -32,4 +33,11 @@ Route::controller(FlashSaleController::class)->group(function () {
     Route::get('/flash-sale', 'get');
     Route::post('/flash-sale', 'store');
     Route::post('/flash-sale/deactive', 'deactive');
+});
+
+Route::controller(OrderController::class)->group(function () {
+    Route::get('/order', 'get');
+    Route::post('/order/getByUserId', 'getByUserId');
+    Route::post('/order/find', 'find');
+    Route::post('/order', 'store');
 });

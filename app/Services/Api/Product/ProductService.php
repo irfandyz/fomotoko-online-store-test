@@ -22,12 +22,12 @@ class ProductService
                 $amountOfData = $request->amount_of_data;
             }
 
-            $paginateData = Product::getPaginatedData(true, $pageNumber, $amountOfData, 'name', 'asc');
+            $paginateData = Product::with('flashSale')->getPaginatedData(true, $pageNumber, $amountOfData, 'name', 'asc');
 
             $product = $paginateData->data;
             $paginate = $paginateData->pagination;
         } else {
-            $product = Product::orderBy('name', 'asc')->get();
+            $product = Product::with('flashSale')->orderBy('name', 'asc')->get();
         }
 
         $status = true;
@@ -38,6 +38,22 @@ class ProductService
             'message' => $message,
             'data' => $product,
             'pagination' => $paginate,
+        ];
+
+        return $result;
+    }
+
+    public function find($request)
+    {
+        $product = Product::with('flashSale')->find($request->product_id);
+
+        $status = true;
+        $message = 'Data retrieved successfully !';
+
+        $result = (object) [
+            'status' => $status,
+            'message' => $message,
+            'data' => $product,
         ];
 
         return $result;

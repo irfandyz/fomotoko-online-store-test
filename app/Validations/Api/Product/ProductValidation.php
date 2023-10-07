@@ -19,6 +19,26 @@ class ProductValidation
 
         return $result;
     }
+
+    public function find($request)
+    {
+        $result = [];
+        $result['status'] = false;
+
+        $validate = [
+            'product_id' => ['required','exists:products,id'],
+        ];
+
+        $request->validate($validate);
+
+        // Validation success
+        $result['status'] = true;
+        $result['message'] = 'Validation successfully !';
+
+        $result = (object) $result;
+
+        return $result;
+    }
     public function store($request)
     {
         $result = [];

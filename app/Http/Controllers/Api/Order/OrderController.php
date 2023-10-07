@@ -31,14 +31,40 @@ class OrderController extends Controller
         return $this->sendResponse($result);
     }
 
+    public function getByUserId(Request $request)
+    {
+        $validation = $this->OrderValidation->getByUserId($request);
+
+        if (!$validation->status) {
+            return $this->sendResponse($validation);
+        }
+
+        $result = $this->OrderService->getByUserId($request);
+
+        return $this->sendResponse($result);
+    }
+
+    public function find(Request $request)
+    {
+        $validation = $this->OrderValidation->find($request);
+
+        if (!$validation->status) {
+            return $this->sendResponse($validation);
+        }
+
+        $result = $this->OrderService->find($request);
+
+        return $this->sendResponse($result);
+    }
+
     public function store(Request $request)
     {
         $validation = $this->OrderValidation->store($request);
         if (!$validation->status) {
             return $this->sendResponse($validation);
         }
-
         $result = $this->OrderService->store($request);
+        return $result;
 
         return $this->sendResponse($result);
     }
