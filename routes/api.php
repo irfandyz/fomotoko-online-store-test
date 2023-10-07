@@ -6,9 +6,14 @@ use App\Http\Controllers\Api\Product\ProductController;
 use App\Http\Controllers\Api\Order\OrderController;
 use App\Http\Controllers\Api\Cart\CartController;
 use App\Http\Controllers\Api\FlashSale\FlashSaleController;
+use App\Http\Controllers\Api\User\UserController;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::controller(UserController::class)->group(function () {
+    Route::get('/user', 'get');
 });
 
 Route::controller(ProductController::class)->group(function () {

@@ -54,8 +54,7 @@ class FlashSaleValidation
                 $result['message'] = 'This product is on Flash Sale !';
                 $result = (object) $result;
                 return $result;
-            }
-            if ($flashSale->status() == 'deactive') {
+            }elseif ($flashSale->status() == 'deactive') {
                 $result['message'] = 'This flash sale is closed by admin !';
                 $result = (object) $result;
                 return $result;
